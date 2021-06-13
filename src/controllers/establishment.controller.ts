@@ -7,9 +7,7 @@ import { EstablishmentService } from "src/services/establishment.service"
 
 export class EstablishmentController{
     constructor( private establishmentService: EstablishmentService){
-
     }
-
 
     @Post()
     createEstablishment(@Body() establishment: Establishment){
