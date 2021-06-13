@@ -9,18 +9,15 @@ import { Establishment } from './models/establishment.model';
 @Module({
   imports: [
     SequelizeModule.forRoot({
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
-    database: 'parking',
-    autoLoadModels: true,
-    synchronize:true,
-  }),
-
-  SequelizeModule.forFeature([Establishment])
-],
+      dialect: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'parking',
+      models: [Establishment],
+    }),
+  ],
   controllers: [AppController, EstablishmentController],
   providers: [AppService, EstablishmentService],
 })
