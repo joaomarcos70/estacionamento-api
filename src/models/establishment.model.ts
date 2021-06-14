@@ -1,33 +1,35 @@
-import {
-  Table,
-  Model,
-  Column,
-  PrimaryKey,
-  AutoIncrement,
-} from 'sequelize-typescript';
+import {Table,Model,Column,DataType,} from 'sequelize-typescript';
 
-@Table({
-  tableName: 'Establishment',
-})
-export class Establishment extends Model {
-  // id pode ser omitido
-  @AutoIncrement
-  @PrimaryKey
-  @Column
-  id!: number;
+@Table
+export class Establishment extends Model<Establishment> {
 
-  @Column
-  nome!: string;
+  @Column({
+    type: DataType.STRING(40),
+    allowNull: false,
+  })
+  name: string;
 
-  @Column
-  adress!: number;
+  @Column({
+    type: DataType.STRING(60),
+    allowNull: false,
+  })
+  adress: string;
 
-  @Column
-  numberPhone!: string;
+  @Column({
+    type: DataType.STRING(12),
+    allowNull: false,
+  })
+  numberPhone: string;
 
-  @Column
-  motorcycleVacancy!: number;
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  motorcycleVacancy: number;
 
-  @Column
-  carVacancy!: number;
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  carVacancy: number;
 }

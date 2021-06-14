@@ -15,8 +15,11 @@ import { Establishment } from './models/establishment.model';
       username: 'root',
       password: 'root',
       database: 'parking',
-      models: [Establishment],
+      autoLoadModels: true,
+      synchronize: true,
     }),
+
+    SequelizeModule.forFeature([Establishment])
   ],
   controllers: [AppController, EstablishmentController],
   providers: [AppService, EstablishmentService],
