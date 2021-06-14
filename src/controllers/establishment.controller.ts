@@ -11,17 +11,17 @@ export class EstablishmentController{
 
     @Post()
     createEstablishment(@Body() establishment: Establishment){
-        establishment.id = 100;
-        this.establishmentService.createEstablishment(establishment);
+    return this.establishmentService.createEstablishment(establishment);
+
     }
 
     @Get()
-    getAllEstablishment(): Establishment[]{
+    getAllEstablishment(){
         return this.establishmentService.getAll();
     }
 
     @Get(':id')
-    getEstablishment(@Param() params): Establishment{
+    getEstablishment(@Param() params){
         return this.establishmentService.getEstablishment(params.id);
     }
 
@@ -31,7 +31,7 @@ export class EstablishmentController{
     }
 
     @Delete(':id')
-    deleteEstablishment(@Param()params){
-        this.establishmentService.deleteEstablishment(params.id);
+    deleteEstablishment(@Param('id')id: string){
+        this.establishmentService.deleteEstablishment(id);
     }
 }

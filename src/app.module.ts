@@ -1,10 +1,9 @@
 import { EstablishmentService } from 'src/services/establishment.service';
 import { EstablishmentController } from './controllers/establishment.controller';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize/dist/sequelize.module';
 import { Establishment } from './models/establishment.model';
+import { Address } from './models/address.model';
 
 @Module({
   imports: [
@@ -19,9 +18,9 @@ import { Establishment } from './models/establishment.model';
       synchronize: true,
     }),
 
-    SequelizeModule.forFeature([Establishment])
+    SequelizeModule.forFeature([Establishment, Address]),
   ],
-  controllers: [AppController, EstablishmentController],
-  providers: [AppService, EstablishmentService],
+  controllers: [EstablishmentController],
+  providers: [EstablishmentService],
 })
 export class AppModule {}
