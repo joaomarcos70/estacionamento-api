@@ -1,7 +1,16 @@
-import {Table,Model,Column,DataType,} from 'sequelize-typescript';
+import { Address } from './address.model';
+import { Table, Model, Column, DataType, HasOne, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 
 @Table
 export class Establishment extends Model<Establishment> {
+
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  })
+  id: string;
 
   @Column({
     type: DataType.STRING(40),
@@ -9,11 +18,14 @@ export class Establishment extends Model<Establishment> {
   })
   name: string;
 
-  @Column({
-    type: DataType.STRING(60),
+    @Column({
+    type: DataType.STRING(20),
     allowNull: false,
   })
-  adress: string;
+  cnpj: string;
+
+  @HasOne(() => Address)
+  addresses: Address[];
 
   @Column({
     type: DataType.STRING(12),
