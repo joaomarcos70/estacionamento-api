@@ -1,31 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { Establishment } from './../models/establishment.model';
 
 @Injectable()
 export class EstablishmentService {
-    establishment: Establishment[] = [
-        /* new Establishment('mini mercado cuca', 'rua dos bobo', '13982184930',10, 10),
-        new Establishment('hyunday', 'rua dos bobo', '13932484930',20, 10),
-        new Establishment('bmw', 'rua dos loco', '13982334930',5, 8) */
-    ];
+    constructor(
+        @InjectModel(Establishment)
+        private establishmentModel: typeof Establishment,
+      ) {}
 
-    getAll(): Establishment[]{
-        return this.establishment;
+    async getAll(): Promise<Establishment[]>{
+        return await this.establishmentModel.findAll();
     }
 
-    getEstablishment(id: number): Establishment{
-        return this.establishment[0];
+    async getEstablishment(id: string): Promise<Establishment>{
+        return await this.establishmentModel.findByPk(id);
     }
 
-    createEstablishment(establishment:Establishment){
-        this.establishment.push(establishment);
+    async createEstablishment(establishment:Establishment){
+        
+        return await this.establishmentModel.create(establishment);
+
     }
 
-    updateEstablishment(establishment:Establishment): Establishment{
-        return establishment;
+    async updateEstablishment(establishment:Establishment, id: string){
+        await this.establishmentModel.update(establishment, {
+            where:{
+                id: id,
+            }
+        })
+        return {
+            message:'atualizado com sucesso'
+        };
     }
 
-    deleteEstablishment(id: number){
-        this.establishment.pop();
+    async deleteEstablishment(id: string){
+        const establishment = await this.getEstablishment(id)
+
+        await establishment.destroy()
+
+            return {
+                message:'apagado com sucesso'
+        }
     }
 }
