@@ -13,7 +13,7 @@ export class EstablishmentService {
         return await this.establishmentModel.findAll();
     }
 
-    async getEstablishment(id: string): Promise<Establishment>{
+    async getEstablishment(id: number): Promise<Establishment>{
         return await this.establishmentModel.findByPk(id);
     }
 
@@ -23,7 +23,7 @@ export class EstablishmentService {
 
     }
 
-    async updateEstablishment(establishment:Establishment, id: string){
+    async updateEstablishment(establishment:Establishment, id: number){
         await this.establishmentModel.update(establishment, {
             where:{
                 id: id,
@@ -34,7 +34,7 @@ export class EstablishmentService {
         };
     }
 
-    async deleteEstablishment(id: string){
+    async deleteEstablishment(id: number){
         const establishment = await this.getEstablishment(id)
 
         await establishment.destroy()

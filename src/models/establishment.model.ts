@@ -5,12 +5,11 @@ import { Table, Model, Column, DataType, HasOne, PrimaryKey, AutoIncrement } fro
 export class Establishment extends Model<Establishment> {
 
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    allowNull: false,
+    type: DataType.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   })
-  id: string;
+  id: number;
 
   @Column({
     type: DataType.STRING(40),

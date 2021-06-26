@@ -31,7 +31,7 @@ export class EstablishmentController{
     }
 
     @Delete(':id')
-    deleteEstablishment(@Param('id')id: string){
+    deleteEstablishment(@Param('id')id: number){
         this.establishmentService.deleteEstablishment(id);
     }
 }

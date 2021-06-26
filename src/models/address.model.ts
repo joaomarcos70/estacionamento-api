@@ -11,18 +11,15 @@ export class Address extends Model<Address>{
     state: string;
 
     @Column({
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4,
+        type: DataType.STRING,
         allowNull: false,
-        primaryKey: true,
-      })
-      id: string;
+    })
+    street: string;
 
     @ForeignKey(()=>Establishment) @Column({
-        type: DataType.UUID,
+        type: DataType.INTEGER,
         field:'establishment_id',
-    })
-     
+    }) 
     establishmentId:string;
     
     @BelongsTo(()=>Establishment)
