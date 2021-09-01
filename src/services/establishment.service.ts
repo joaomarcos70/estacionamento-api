@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Address } from 'src/models/address.model';
 import { Establishment } from './../models/establishment.model';
 
 @Injectable()
@@ -7,6 +8,8 @@ export class EstablishmentService {
     constructor(
         @InjectModel(Establishment)
         private establishmentModel: typeof Establishment,
+        @InjectModel(Address)
+        private addressModel: typeof Address,
       ) {}
 
     async getAll(): Promise<Establishment[]>{
@@ -18,8 +21,16 @@ export class EstablishmentService {
     }
 
     async createEstablishment(establishment:Establishment){
-        
-        return await this.establishmentModel.create(establishment);
+        try {
+            const address = await this.addressModel.create(establishment.addresses)
+            console.log(address.id);
+            establishment.addressId = address.id
+
+            await this.establishmentModel.create(establishment);
+            return {status: HttpStatus.CREATED, message:'Estabelecimetno criado com sucesso!'}
+        } catch (error: any) {
+            return {error: error.message}
+        }
 
     }
 

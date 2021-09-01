@@ -1,5 +1,5 @@
 import { Address } from './address.model';
-import { Table, Model, Column, DataType, HasOne, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 
 @Table
 export class Establishment extends Model<Establishment> {
@@ -23,9 +23,6 @@ export class Establishment extends Model<Establishment> {
   })
   cnpj: string;
 
-  @HasOne(() => Address)
-  addresses: Address[];
-
   @Column({
     type: DataType.STRING(12),
     allowNull: false,
@@ -43,4 +40,15 @@ export class Establishment extends Model<Establishment> {
     allowNull: false,
   })
   carVacancy: number;
+
+  @ForeignKey(()=>Address)
+  @Column({
+    type: DataType.INTEGER,
+    field:'addressId',
+  }) 
+    addressId: number;
+
+  @BelongsTo(()=>Address)
+    addresses:Address;
+
 }
